@@ -17,7 +17,7 @@ struct PongGameView: View {
                     .font(.title)
                     .padding()
 
-                Text("You are: \(webSocketManager.playerRole)")
+                Text("You are: \(String(describing: webSocketManager.playerRole))")
                     .font(.headline)
                     .padding()
 
@@ -36,7 +36,7 @@ struct PongGameView: View {
                     // Opponent Paddle
                     Rectangle()
                         .frame(width: 100, height: 10)
-                        .position(x: webSocketManager.opponentPaddlePosition * geo.size.width, y: 50)
+                        .position(x: webSocketManager.opponentPaddlePosition * geo.size.width, y: 0)
                         .foregroundColor(.red)
                 }
                 .gesture(DragGesture().onChanged { value in

@@ -22,16 +22,18 @@ async def move_ball():
         game_state["ball"]["y"] += game_state["ball"]["dy"]
 
         # Ball collision with walls (left/right)
-        if game_state["ball"]["x"] <= 0 or game_state["ball"]["x"] >= 500:
+        if game_state["ball"]["x"] <= 0 or game_state["ball"]["x"] >= 400:
             game_state["ball"]["dx"] *= -1  # Reverse direction
 
         # Ball collision with paddles
         if game_state["ball"]["y"] <= 20:  # Top paddle (Player 1)
-            if abs(game_state["players"]["player1"] * 500 - game_state["ball"]["x"]) < 50:
+            print(abs(game_state["players"]["player2"]))
+            if abs(game_state["players"]["player2"] * 500 - game_state["ball"]["x"]) < 50:
                 game_state["ball"]["dy"] *= -1  # Reverse direction
 
         if game_state["ball"]["y"] >= 580:  # Bottom paddle (Player 2)
-            if abs(game_state["players"]["player2"] * 500 - game_state["ball"]["x"]) < 50:
+            print(abs(game_state["players"]["player1"]))
+            if abs(game_state["players"]["player1"] * 500 - game_state["ball"]["x"]) < 50:
                 game_state["ball"]["dy"] *= -1  # Reverse direction
 
         # Ball goes out of bounds (reset game)
@@ -39,7 +41,7 @@ async def move_ball():
             game_state["ball"] = {"x": 250, "y": 300, "dx": random.choice([-3, 3]), "dy": random.choice([-3, 3])}
 
         await broadcast()
-        await asyncio.sleep(0.03)  # Update ball every 30ms
+        await asyncio.sleep(0.01)  # Update ball every 30ms
 
 async def broadcast():
     """Send the game state to all connected players."""
